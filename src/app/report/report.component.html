@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="cmc-loading-shade" id="commonLoader">
+      <mat-spinner></mat-spinner>
+    </div>
+    <p>Simple Report</p>
+    <mat-accordion multi>
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Search criteria
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <form [formGroup]="searchForm" (ngSubmit)="generateReport()">
+            <mat-form-field class="search-form-field">
+              <mat-label>ID</mat-label>
+              <input matInput formControlName="id">
+            </mat-form-field>
+            <mat-form-field class="search-form-field">
+              <mat-label>Start Date</mat-label>
+              <input matInput [matDatepicker]="startDate" formControlName="startDate">
+              <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+              <mat-datepicker #startDate></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="search-form-field">
+              <mat-label>End Date</mat-label>
+              <input matInput [matDatepicker]="endDate" formControlName="endDate">
+              <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+              <mat-datepicker #endDate></mat-datepicker>
+            </mat-form-field><br/><br/>
+            <button type="submit" class="btn btn-primary btn-sm" (click)="generateReport()">Generate Report</button>
+          </form>
+        </mat-expansion-panel>
+      </mat-accordion>
+</div>
+<div *ngIf="enableReport">
+  <app-pdf-viewer fileName="Report1" [content]="content"></app-pdf-viewer>
+</div>
